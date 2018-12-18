@@ -10,7 +10,7 @@ let ReasonButtonWrapper = styled.div({
 });
 
 
-class DayTypeReasons extends Component {
+class DayTypeReasonsEl extends Component {
   constructor(props){
     super(props)
     this.reasons = [
@@ -77,4 +77,4 @@ console.log('DayType',this.props)
  }
 }
 
-export default DayTypeReasons
+export default DayTypeReasonsEl

@@ -2,20 +2,21 @@ import { createStore, combineReducers } from 'redux';
 import {connect, Provider } from 'react-redux'
 import { format } from 'date-fns'
 import {
+  SET_DAY_TO_RATE,
   ADD_DAY_RATING,
   UPDATE_DAY_RATING,
   ADD_REASON,
-  UPDATE_REASON,
+  DELETE_REASON,
   ADD_REASON_DETAIL,
   UPDATE_REASON_DETAIL } from './actions'
 
 const initialState = {
   userInfo: {
-    email: null,
-    firstName: null,
-    lastName: null
+    email: undefined,
+    firstName: undefined,
+    lastName: undefined
   },
-  dayToRate: format(new Date(), 'YYYY-MM-DD'),
+  dayToRate: undefined,
   dayRatings: [
     // {
     //   day: null,
@@ -24,19 +25,29 @@ const initialState = {
   ],
   reasons: [
     {
-      day: null,
-      reasonId: null,
+      day: undefined,
+      reasonId: undefined,
     }
   ],
   reasonDetails: [
     {
-      day: null,
-      reasonId: null,
-      detailType: null,
-      info: null
+      day: undefined,
+      reasonId: undefined,
+      detailType: undefined,
+      info: undefined
     }
   ]
 };
+
+let today = format(new Date(), 'YYYY-MM-DD');
+function dayToRate(state = today, action) {
+  switch (action.type) {
+    case SET_DAY_TO_RATE:
+      return action.dayToRate
+    default:
+      return state
+  }
+}
 
 
 function dayRatings(state = [], action) {
@@ -75,7 +86,7 @@ function reasons(state = [], action) {
           reasonId: action.reasonId
         }
       ]
-    case UPDATE_REASON:
+    case DELETE_REASON:
       return state.map( item => {
         if (item.day === action.day) {
           return { day: item.day, reasonId: action.reasonId };
@@ -132,6 +143,7 @@ function reasonDetails(state = [], action) {
 // })
 export default function yourDayReducers(state = initialState, action) {
   return {
+    dayToRate: dayToRate(state.dayToRate, action),
     dayRatings: dayRatings(state.dayRatings, action),
     reasons: reasons(state.reasons, action),
     reasonDetails: reasonDetails(state.reasonDetails, action)

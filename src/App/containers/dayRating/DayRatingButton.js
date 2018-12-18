@@ -3,10 +3,9 @@ import { addDayRating, updateDayRating  } from '../../stateManagement/actions'
 import DayRatingButtonEl from '../../components/dayRating/DayRatingButtonEl'
 
 const mapStateToProps = state => {
+  let ratingForCurrentDay = state.dayRatings.filter( item => item.day === state.dayToRate).pop();
   return {
-    dayRating: state.dayRatings.filter( item => {
-      return item.day === state.dayToRate;
-    }),
+    dayRating: (typeof ratingForCurrentDay !== 'undefined') ? ratingForCurrentDay : {dayRating: null},
     dayToRate: state.dayToRate
   }
 }

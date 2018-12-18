@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import DayRatingButton from '../../containers/dayRating/DayRatingButton'
-import DayTypeReasons from './DayTypeReasons'
+import DayTypeReasons from '../../containers/dayRating/DayTypeReasons'
 import SaveButton from './SaveButton'
 import styled from '@emotion/styled'
 
@@ -12,7 +12,7 @@ let DayRatingButtons = styled.div({
   margin: '0 auto 1rem auto'
 });
 
-class DayRating extends Component {
+class DayRatingEl extends Component {
 
 
 
@@ -45,7 +45,8 @@ class DayRating extends Component {
     });
 
 
-
+console.log('dayratingjs props',this.props)
+    debugger
     return (
       <div>
         <h1>How was your work day?</h1>
@@ -54,14 +55,14 @@ class DayRating extends Component {
           { dayRatingButtons }
         </DayRatingButtons>
 
-        {/*{ */}
-          {/*this.state.dayType &&*/}
-          {/*<h2>because I ...</h2>*/}
-        {/*}*/}
-        {/*{*/}
-          {/*this.state.dayType &&*/}
-          {/*<DayTypeReasons dayType={this.state.dayType} />*/}
-        {/*}      */}
+        {
+          this.state.dayType &&
+          <h2>because I ...</h2>
+        }
+        {
+          this.state.dayType &&
+          <DayTypeReasons dayType={this.state.dayType} />
+        }
 
         <SaveButton/>
 
@@ -70,4 +71,4 @@ class DayRating extends Component {
   }
 }
 
-export default DayRating
+export default DayRatingEl
