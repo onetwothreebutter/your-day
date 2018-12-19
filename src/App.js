@@ -8,7 +8,7 @@ import yourDayReducers from './App/stateManagement/reducers'
 
 
 //import LoginButton from './App/components/login/LoginButton'
-import DayRatingEl from './App/components/dayRating/DayRatingEl'
+import DayRating from './App/containers/dayRating/DayRating'
 
 class App extends Component {
 
@@ -18,7 +18,7 @@ class App extends Component {
     return (
       <Provider store={store}>
         <div className="App">
-          <DayRatingEl/>
+          <DayRating/>
         </div>
       </Provider>
     );

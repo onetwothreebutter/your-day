@@ -14,10 +14,6 @@ let DayRatingButtons = styled.div({
 
 class DayRatingEl extends Component {
 
-
-
-  
-
   render(){
 
     const dayTypes = [
@@ -45,8 +41,17 @@ class DayRatingEl extends Component {
     });
 
 
-console.log('dayratingjs props',this.props)
-    debugger
+    console.log('dayratingjs props',this.props)
+
+    let reasonsSection = '';
+    if (typeof this.props.ratingForCurrentDay !== 'undefined') {
+      reasonsSection =
+        <div>
+          <h2>because I...</h2>
+          <DayTypeReasons dayType={this.props.ratingForCurrentDay}/>
+        </div>
+    }
+
     return (
       <div>
         <h1>How was your work day?</h1>
@@ -55,14 +60,7 @@ console.log('dayratingjs props',this.props)
           { dayRatingButtons }
         </DayRatingButtons>
 
-        {
-          this.state.dayType &&
-          <h2>because I ...</h2>
-        }
-        {
-          this.state.dayType &&
-          <DayTypeReasons dayType={this.state.dayType} />
-        }
+        { reasonsSection }
 
         <SaveButton/>
 
