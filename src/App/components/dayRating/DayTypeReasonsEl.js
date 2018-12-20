@@ -56,16 +56,26 @@ class DayTypeReasonsEl extends Component {
   
  render () {
 console.log('DayType',this.props)
+   let ratingForCurrentDay = this.props.ratingForCurrentDay;
    let reasonsEls = 
     this.reasons
     .filter((reason) => {
-      return reason.associatedDayTypes.includes(this.props.dayType);
+      return reason.associatedDayTypes.includes(ratingForCurrentDay);
     })
     .map((reason) => {
-      return <ReasonButton {...reason} 
+      this.props.currentReasons.forEach( item => {
+        if (item.reasonId === reason.reasonId) {
+          reason.checked = true;
+          return reason;
+        }
+      })
+      return reason;
+    })
+    .map((reason) => {
+      return <ReasonButton {...reason}
+        dayToRate={this.props.dayToRate}
         addReason={this.props.addReason}
         deleteReason={this.props.deleteReason}
-        updateReason={this.props.updateReason}
       />;
     });
 

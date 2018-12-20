@@ -4,9 +4,11 @@ import DayTypeReasonsEl from "../../components/dayRating/DayTypeReasonsEl";
 
 const mapStateToProps = state => {
   let reasonsForCurrentDay = state.reasons.filter( item => item.day === state.dayToRate);
+  let ratingForCurrentDay = state.dayRatings.filter( item => item.day === state.dayToRate).pop();
   return {
-    reasons: (typeof reasonsForCurrentDay !== 'undefined') ? reasonsForCurrentDay : {reasonId: null},
-    dayToRate: state.dayToRate
+    currentReasons: (typeof reasonsForCurrentDay !== 'undefined') ? reasonsForCurrentDay : {reasonId: null},
+    dayToRate: state.dayToRate,
+    ratingForCurrentDay: (typeof ratingForCurrentDay !== 'undefined') ? ratingForCurrentDay.dayRating : null
   }
 }
 

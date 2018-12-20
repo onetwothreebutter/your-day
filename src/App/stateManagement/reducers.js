@@ -77,6 +77,8 @@ function dayRatings(state = [], action) {
 
 
 function reasons(state = [], action) {
+
+  console.log('ADD_REASON')
   switch (action.type) {
     case ADD_REASON:
       return [
