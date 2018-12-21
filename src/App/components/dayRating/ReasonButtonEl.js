@@ -16,9 +16,9 @@ class ReasonButtonEl extends Component {
 
   checkboxClicked() {
     if(!this.props.checked) {
-      this.props.addReason(this.props.reasonId, this.props.dayToRate)
+      this.props.addReason(this.props.reasonId, this.props.dayToRate, this.props.dayRating)
     } else {
-      this.props.deleteReason(this.props.reasonId, this.props.dayToRate)
+      this.props.deleteReason(this.props.reasonId, this.props.dayToRate, this.props.dayRating)
     }
   }
   

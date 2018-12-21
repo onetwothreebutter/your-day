@@ -26,12 +26,12 @@ export function updateDayRating(dayRating, day) {
   return { type: UPDATE_DAY_RATING, dayRating, day}
 }
 
-export function addReason(reasonId, day) {
-  return { type: ADD_REASON, reasonId, day }
+export function addReason(reasonId, day, dayRating) {
+  return { type: ADD_REASON, reasonId, day, dayRating}
 }
 
-export function deleteReason(reasonId, day) {
-  return { type: DELETE_REASON, reasonId, day }
+export function deleteReason(reasonId, day, dayRating) {
+  return { type: DELETE_REASON, reasonId, day, dayRating }
 }
 
 export function addReasonDetail(reasonId, reasonDetail, day) {

@@ -26,6 +26,7 @@ const initialState = {
   reasons: [
     // {
     //   day: undefined,
+    //   dayRating: undefined
     //   reasonId: undefined,
     // }
   ],
@@ -85,16 +86,16 @@ function reasons(state = [], action) {
         ...state,
         {
           day: action.day,
-          reasonId: action.reasonId
+          reasonId: action.reasonId,
+          dayRating: action.dayRating
         }
       ]
     case DELETE_REASON:
-      return state.map( item => {
-        if (item.day === action.day) {
-          return { day: item.day, reasonId: action.reasonId };
-        } else {
-          return item;
-        }
+      return state.filter( item => {
+        return !(item.day === action.day &&
+          item.reasonId === action.reasonId &&
+          item.dayRating === action.dayRating
+        );
       });
 
     default:

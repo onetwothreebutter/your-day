@@ -15,11 +15,11 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    addReason: (reasonId, dayToRate) => {
-      dispatch(addReason(reasonId, dayToRate))
+    addReason: (reasonId, dayToRate, dayRating) => {
+      dispatch(addReason(reasonId, dayToRate, dayRating))
     },
-    deleteReason: (reasonId, dayToRate) => {
-      dispatch(deleteReason(reasonId, dayToRate))
+    deleteReason: (reasonId, dayToRate, dayRating) => {
+      dispatch(deleteReason(reasonId, dayToRate, dayRating))
     }
   }
 }
