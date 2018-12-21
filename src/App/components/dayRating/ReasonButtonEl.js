@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import ReasonDetail from './ReasonDetail'
+import ReasonDetailEl from './ReasonDetailEl'
 import styled from '@emotion/styled'
 
 let ReasonLabel = styled.label({
@@ -7,24 +7,19 @@ let ReasonLabel = styled.label({
 })
 
 
-class ReasonButton extends Component {
+class ReasonButtonEl extends Component {
 
   constructor (props) {
     super(props);
-    this.state = {checked: false};
     this.checkboxClicked = this.checkboxClicked.bind(this);
   }
 
   checkboxClicked() {
-    if(!this.state.checked) {
+    if(!this.props.checked) {
       this.props.addReason(this.props.reasonId, this.props.dayToRate)
     } else {
       this.props.deleteReason(this.props.reasonId, this.props.dayToRate)
     }
-
-    this.setState({
-      checked: !this.state.checked
-    });
   }
   
  render () {
@@ -37,12 +32,12 @@ class ReasonButton extends Component {
       </ReasonLabel>
 
        { this.props.reasonDetail.includes('person') &&
-         this.state.checked &&
-         <ReasonDetail reasonDetailType={this.props.reasonDeatil}/>
+         this.props.checked &&
+         <ReasonDetailEl reasonDetailType={this.props.reasonDeatil}/>
        }
      </>
     )
  }
 }
 
-export default ReasonButton
+export default ReasonButtonEl

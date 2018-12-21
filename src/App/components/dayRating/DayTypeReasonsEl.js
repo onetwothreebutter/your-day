@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import ReasonButton from './ReasonButton'
+import ReasonButtonEl from './ReasonButtonEl'
 import styled from '@emotion/styled'
 
 let ReasonButtonWrapper = styled.div({
@@ -55,8 +55,9 @@ class DayTypeReasonsEl extends Component {
   }
   
  render () {
-console.log('DayType',this.props)
+    console.log('DayTypeREasonsEl')
    let ratingForCurrentDay = this.props.ratingForCurrentDay;
+   let currentReasons = this.props.currentReasons;
    let reasonsEls = 
     this.reasons
     .filter((reason) => {
@@ -68,14 +69,15 @@ console.log('DayType',this.props)
           reason.checked = true;
           return reason;
         }
-      })
+      });
+      reason.checked = false;
       return reason;
     })
     .map((reason) => {
-      return <ReasonButton {...reason}
-        dayToRate={this.props.dayToRate}
-        addReason={this.props.addReason}
-        deleteReason={this.props.deleteReason}
+      return <ReasonButtonEl {...reason}
+                             dayToRate={this.props.dayToRate}
+                             addReason={this.props.addReason}
+                             deleteReason={this.props.deleteReason}
       />;
     });
 

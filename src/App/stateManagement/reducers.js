@@ -24,18 +24,18 @@ const initialState = {
     // }
   ],
   reasons: [
-    {
-      day: undefined,
-      reasonId: undefined,
-    }
+    // {
+    //   day: undefined,
+    //   reasonId: undefined,
+    // }
   ],
   reasonDetails: [
-    {
-      day: undefined,
-      reasonId: undefined,
-      detailType: undefined,
-      info: undefined
-    }
+    // {
+    //   day: undefined,
+    //   reasonId: undefined,
+    //   detailType: undefined,
+    //   info: undefined
+    // }
   ]
 };
 

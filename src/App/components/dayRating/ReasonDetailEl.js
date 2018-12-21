@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import Select from 'react-select'
 import styled from '@emotion/styled'
 
-class ReasonDetail extends Component {
+class ReasonDetailEl extends Component {
 
 
   updateReaon() {
@@ -33,4 +33,4 @@ class ReasonDetail extends Component {
  }
 }
 
-export default ReasonDetail
+export default ReasonDetailEl

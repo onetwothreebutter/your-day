@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import firebase from 'firebase'
 import styled from '@emotion/styled'
 
-let SaveButtonEl = styled.button({
+let SaveButtonCss = styled.button({
   background: 'mediumseagreen',
   color: 'white',
   borderRadius: '5px',
@@ -14,7 +14,7 @@ let SaveButtonEl = styled.button({
 });
 
 
-class SaveButton extends Component {
+class SaveButtonEl extends Component {
 
   constructor(props){
     super(props);
@@ -37,12 +37,12 @@ class SaveButton extends Component {
   render () {
     return (
       <>
-        <SaveButtonEl onClick={this.save}>
+        <SaveButtonCss onClick={this.save}>
           Save
-        </SaveButtonEl>
+        </SaveButtonCss>
       </>
       )
   }
 }
 
-export default SaveButton
+export default SaveButtonEl

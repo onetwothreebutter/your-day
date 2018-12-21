@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import DayRatingButton from '../../containers/dayRating/DayRatingButton'
 import DayTypeReasons from '../../containers/dayRating/DayTypeReasons'
-import SaveButton from './SaveButton'
+import SaveButtonEl from './SaveButtonEl'
 import styled from '@emotion/styled'
 
 let DayRatingButtons = styled.div({
@@ -62,7 +62,7 @@ class DayRatingEl extends Component {
 
         { reasonsSection }
 
-        <SaveButton/>
+        <SaveButtonEl/>
 
       </div>
     )
