@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import ReasonButtonEl from './ReasonButtonEl'
+import ReasonButtonEl from '../ReasonButton/ReasonButtonEl'
 import styled from '@emotion/styled'
 
 let ReasonButtonWrapper = styled.div({

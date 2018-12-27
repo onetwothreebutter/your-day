@@ -1,6 +1,6 @@
 import { connect } from 'react-redux'
 import { addReason, deleteReason  } from '../../stateManagement/actions'
-import DayTypeReasonsEl from "../../components/dayRating/DayTypeReasonsEl";
+import DayTypeReasonsEl from "./DayTypeReasonsEl";
 
 const mapStateToProps = state => {
   let reasonsForCurrentDay = state.reasons.filter( item => item.day === state.dayToRate);

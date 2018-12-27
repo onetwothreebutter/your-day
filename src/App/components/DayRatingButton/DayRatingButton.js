@@ -1,6 +1,6 @@
 import { connect } from 'react-redux'
 import { addDayRating, updateDayRating  } from '../../stateManagement/actions'
-import DayRatingButtonEl from '../../components/dayRating/DayRatingButtonEl'
+import DayRatingButtonEl from './DayRatingButtonEl'
 
 const mapStateToProps = state => {
   let ratingForCurrentDay = state.dayRatings.filter( item => item.day === state.dayToRate).pop();

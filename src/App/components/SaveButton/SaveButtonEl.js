@@ -6,7 +6,8 @@ let SaveButtonCss = styled.button({
   background: 'mediumseagreen',
   color: 'white',
   borderRadius: '5px',
-  padding: '10px 20px',
+  padding: '0.4rem 1.2rem',
+  fontSize: '1rem',
   '&:hover': {
     cursor: 'pointer',
     background: 'green'

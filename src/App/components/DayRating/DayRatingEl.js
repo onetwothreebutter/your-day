@@ -1,15 +1,40 @@
 import React, {Component} from 'react';
-import DayRatingButton from '../../containers/dayRating/DayRatingButton'
-import DayTypeReasons from '../../containers/dayRating/DayTypeReasons'
-import SaveButtonEl from './SaveButtonEl'
+import {format} from 'date-fns';
+import DayRatingButton from '../DayRatingButton/DayRatingButton'
+import DayTypeReasons from '../DayTypeReasons/DayTypeReasons'
+import SaveButtonEl from '../SaveButton/SaveButtonEl'
 import styled from '@emotion/styled'
 
-let DayRatingButtons = styled.div({
+let DayRatingCss = styled.div({
+  display: 'flex',
+  alignItems: 'center',
+  flexDirection: 'column',
+  maxWidth: '50rem',
+  margin: 'auto'
+});
+
+let DayRatingButtonsCss = styled.div({
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'space-around',
+  width: '100%',
   maxWidth: '30rem',
   margin: '0 auto 1rem auto'
+});
+
+let HeadingCss = styled.h1({
+  textAlign: 'center'
+});
+
+let HeadingDateCss = styled.span({
+  display: 'block',
+  marginTop: '1rem',
+  fontWeight: '200',
+  fontSize: '1rem'
+});
+
+let ReasonsSectionCss = styled.div({
+  textAlign: 'center'
 });
 
 class DayRatingEl extends Component {
@@ -46,25 +71,27 @@ class DayRatingEl extends Component {
     let reasonsSection = '';
     if (typeof this.props.ratingForCurrentDay !== 'undefined') {
       reasonsSection =
-        <div>
+        <ReasonsSectionCss>
           <h2>because I...</h2>
           <DayTypeReasons dayType={this.props.ratingForCurrentDay}/>
-        </div>
+        </ReasonsSectionCss>
     }
 
     return (
-      <div>
-        <h1>How was your work day?</h1>
+      <DayRatingCss>
+        <HeadingCss>How was your work day?
+          <HeadingDateCss>{format(this.props.dayToRate, 'dddd, MMMM D, YYYY')}</HeadingDateCss>
+        </HeadingCss>
         <h2>My day was...</h2>
-        <DayRatingButtons>
+        <DayRatingButtonsCss>
           { dayRatingButtons }
-        </DayRatingButtons>
+        </DayRatingButtonsCss>
 
         { reasonsSection }
 
         <SaveButtonEl/>
 
-      </div>
+      </DayRatingCss>
     )
   }
 }

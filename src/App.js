@@ -1,26 +1,45 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
-
+import Auth from './App/utils/Auth';
+import {BrowserRouter as Router, Route, Switch, withRouter} from 'react-router-dom'
 import { Provider } from 'react-redux'
+import AppCss from './App/styles/AppStyles'
+import SecretRoute from './App/utils/SecretRoute'
+import HomePage from './App/pages/HomePage'
+import LoginPage from './App/pages/LoginPage'
+import DayRatingPage from './App/pages/DayRatingPage'
+import HappiestCompanies from './App/pages/HappiestCompanies'
+import Callback from './App/components/Callback/Callback'
 import { createStore } from 'redux'
 import yourDayReducers from './App/stateManagement/reducers'
+import PublicRoute from "./App/utils/PublicRoute";
 
-
-//import LoginButton from './App/components/login/LoginButton'
-import DayRating from './App/containers/dayRating/DayRating'
+const auth = new Auth();
 
 class App extends Component {
 
-  render() {   
+  render() {
     const store = createStore(yourDayReducers)
     
     return (
-      <Provider store={store}>
-        <div className="App">
-          <DayRating/>
-        </div>
-      </Provider>
+      <Router>
+        <Provider store={store}>
+          <AppCss>
+            <Switch>
+              <SecretRoute path="/rate-day" myComponent={DayRatingPage} auth={auth}/>
+              <SecretRoute path="/dashboard" myComponent={HomePage} auth={auth}/>
+
+              <Route path="/login" render={(routerProps) => <LoginPage {...routerProps} auth={auth} /> } />
+              <Route exact path='/callback' render={() => (
+                <Callback auth={auth}/>
+              )}/>
+
+              <PublicRoute path="/happiest-companies" myComponent={HappiestCompanies} auth={auth}/>
+              <PublicRoute path="/home" myComponent={HomePage} auth={auth}/>
+              <PublicRoute path="/" myComponent={HomePage} auth={auth}/>
+            </Switch>
+          </AppCss>
+        </Provider>
+      </Router>
     );
   }
 }

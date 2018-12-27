@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import ReasonDetailEl from './ReasonDetailEl'
+import ReasonDetailEl from '../ReasonDetail/ReasonDetailEl'
 import styled from '@emotion/styled'
 
 let ReasonLabel = styled.label({

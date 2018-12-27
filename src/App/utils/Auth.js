@@ -1,7 +1,7 @@
 import auth0 from 'auth0-js';
 import history from './history';
 
-export default class Auth {
+class Auth {
 
   constructor() {
     this.login = this.login.bind(this);
@@ -13,21 +13,24 @@ export default class Auth {
   auth0 = new auth0.WebAuth({
     domain: 'yourhr.auth0.com',
     clientID: 'lkxmi897Vrgj017L8qIS9JTw3sb5c1fK',
-    redirectUri: 'https://OffbeatSomberSdk--ericjohnson2.repl.co',
+    redirectUri: 'http://localhost:3000/callback',
     responseType: 'token id_token',
     scope: 'openid'
   });
 
+
   handleAuthentication() {
-    this.auth0.parseHash((err, authResult) => {
-      if (authResult && authResult.accessToken && authResult.idToken) {
+    return new Promise((resolve, reject) => {
+      this.auth0.parseHash((err, authResult) => {
+        if (err) return reject(err);
+        console.log(authResult);
+        if (!authResult || !authResult.idToken) {
+          return reject(err);
+        }
         this.setSession(authResult);
-        history.replace('/home');
-      } else if (err) {
-        history.replace('/home');
-        console.log(err);
-      }
-    });
+        resolve();
+      });
+    })
   }
 
   setSession(authResult) {
@@ -60,3 +63,5 @@ export default class Auth {
     return new Date().getTime() < expiresAt;
   }
 }
+
+export default Auth;
