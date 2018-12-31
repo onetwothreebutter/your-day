@@ -8,6 +8,7 @@ class Auth {
     this.logout = this.logout.bind(this);
     this.handleAuthentication = this.handleAuthentication.bind(this);
     this.isAuthenticated = this.isAuthenticated.bind(this);
+    this.userProfile = null;
   }
 
   auth0 = new auth0.WebAuth({
@@ -15,7 +16,7 @@ class Auth {
     clientID: 'lkxmi897Vrgj017L8qIS9JTw3sb5c1fK',
     redirectUri: 'http://localhost:3000/callback',
     responseType: 'token id_token',
-    scope: 'openid'
+    scope: 'openid email'
   });
 
 
@@ -62,6 +63,33 @@ class Auth {
     let expiresAt = JSON.parse(localStorage.getItem('expires_at'));
     return new Date().getTime() < expiresAt;
   }
+
+
+  async getProfile() {
+
+    let self = this;
+
+    if (!this.userProfile) {
+      var accessToken = localStorage.getItem('access_token');
+
+      if (!accessToken) {
+        console.log('Access Token must exist to fetch profile');
+      }
+
+      await this.auth0.client.userInfo(accessToken, function(err, profile) {
+        if (profile) {
+          self.userProfile = profile;
+        }
+      });
+
+      return this.userProfile;
+
+    } else {
+      return this.userProfile;
+    }
+  }
+
+
 }
 
 export default Auth;

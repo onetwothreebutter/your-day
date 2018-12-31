@@ -1,10 +1,11 @@
 import { connect } from 'react-redux'
-import { addDayRating, updateDayRating  } from '../../stateManagement/actions'
+import { addDayRating, updateDayRating, deleteReasonsForDayRating  } from '../../stateManagement/actions'
 import DayRatingButtonEl from './DayRatingButtonEl'
 
 const mapStateToProps = state => {
   let ratingForCurrentDay = state.dayRatings.filter( item => item.day === state.dayToRate).pop();
   return {
+    id: (typeof ratingForCurrentDay !== 'undefined') ? ratingForCurrentDay.id : null,
     dayRating: (typeof ratingForCurrentDay !== 'undefined') ? ratingForCurrentDay : {dayRating: null},
     dayToRate: state.dayToRate
   }
@@ -16,9 +17,10 @@ const mapDispatchToProps = dispatch => {
     addDayRating: (rating, dayToRate) => {
       dispatch(addDayRating(rating, dayToRate))
     },
-    updateDayRating: (rating, dayToRate) => {
-      dispatch(updateDayRating(rating, dayToRate))
-    }
+    updateDayRating: (id, rating, dayToRate) => {
+      dispatch(updateDayRating(id, rating, dayToRate));
+      dispatch(deleteReasonsForDayRating(id));
+    },
   }
 }
 

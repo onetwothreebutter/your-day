@@ -15,37 +15,37 @@ class DayTypeReasonsEl extends Component {
     super(props)
     this.reasons = [
       {
-         reasonId: 'gotALotDone',
+         reasonType: 'gotALotDone',
          reasonText: 'Got A Lot Done',
          associatedDayTypes: ['greatDay','goodDay','fineDay'],
          reasonDetail: []
       },
       {
-        reasonId: 'didGoodWork',
+        reasonType: 'didGoodWork',
         reasonText: 'Did Good Work',
         associatedDayTypes: ['greatDay','goodDay','fineDay'],
         reasonDetail: []
       },
       {
-        reasonId: 'helpedCoworkers',
+        reasonType: 'helpedCoworkers',
         reasonText: 'Helped Coworkers',
         associatedDayTypes: ['greatDay','goodDay','fineDay'],
         reasonDetail: []
       },
       {
-        reasonId: 'overworkedButGotALotDone',
+        reasonType: 'overworkedButGotALotDone',
         reasonText: 'Overworked But Got A Lot Done',
         associatedDayTypes: ['goodDay','fineDay'],
         reasonDetail: []
       },
       {
-        reasonId: 'sick',
+        reasonType: 'sick',
         reasonText: `Working Even Though You're Sick`,
         associatedDayTypes: ['fineDay','notGoodDay', 'badDay'],
         reasonDetail: []
       },
       {
-        reasonId: 'personRuinedDay',
+        reasonType: 'personRuinedDay',
         reasonText: 'Someone at Work Ruined Your Day',
         associatedDayTypes: ['fineDay','notGoodDay', 'badDay'],
         reasonDetail: ['person']
@@ -66,20 +66,18 @@ class DayTypeReasonsEl extends Component {
     .map((reason) => {
       let isChecked = false
       this.props.currentReasons.forEach( item => {
-        if (item.reasonId === reason.reasonId && item.dayRating === ratingForCurrentDay) {
+        if (item.reasonType === reason.reasonType) {
           isChecked = true;
         }
+        reason.reasonId = item.id;
       });
       reason.checked = isChecked;
       return reason;
     })
     .map((reason) => {
-      console.log("currentREasons", this.props.currentReasons)
-      console.log("one", reason)
-      return <ReasonButtonEl key={reason.reasonId}
+      return <ReasonButtonEl key={reason.reasonType}
                              {...reason}
-                             dayRating={this.props.ratingForCurrentDay}
-                             dayToRate={this.props.dayToRate}
+                             dayRatingId={this.props.dayRatingId}
                              addReason={this.props.addReason}
                              deleteReason={this.props.deleteReason}
       />;

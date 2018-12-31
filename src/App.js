@@ -7,6 +7,7 @@ import SecretRoute from './App/utils/SecretRoute'
 import HomePage from './App/pages/HomePage'
 import LoginPage from './App/pages/LoginPage'
 import DayRatingPage from './App/pages/DayRatingPage'
+import RatingHistoryPage from './App/pages/RatingHistoryPage'
 import HappiestCompanies from './App/pages/HappiestCompanies'
 import Callback from './App/components/Callback/Callback'
 import { createStore } from 'redux'
@@ -17,6 +18,11 @@ const auth = new Auth();
 
 class App extends Component {
 
+  constructor(props){
+    super(props);
+
+  }
+
   render() {
     const store = createStore(yourDayReducers)
     
@@ -26,6 +32,7 @@ class App extends Component {
           <AppCss>
             <Switch>
               <SecretRoute path="/rate-day" myComponent={DayRatingPage} auth={auth}/>
+              <SecretRoute path="/rating-history" myComponent={RatingHistoryPage} auth={auth}/>
               <SecretRoute path="/dashboard" myComponent={HomePage} auth={auth}/>
 
               <Route path="/login" render={(routerProps) => <LoginPage {...routerProps} auth={auth} /> } />

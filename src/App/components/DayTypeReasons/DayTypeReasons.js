@@ -3,23 +3,24 @@ import { addReason, deleteReason  } from '../../stateManagement/actions'
 import DayTypeReasonsEl from "./DayTypeReasonsEl";
 
 const mapStateToProps = state => {
-  let reasonsForCurrentDay = state.reasons.filter( item => item.day === state.dayToRate);
-  let ratingForCurrentDay = state.dayRatings.filter( item => item.day === state.dayToRate).pop();
+  let ratingForCurrentDay = state.dayRatings.filter( dayRating => dayRating.day === state.dayToRate).pop();
+  let reasonsForCurrentDay = state.reasons.filter( item => item.dayRatingId === ratingForCurrentDay.id);
+
   return {
-    currentReasons: (typeof reasonsForCurrentDay !== 'undefined') ? reasonsForCurrentDay : {reasonId: null},
-    dayToRate: state.dayToRate,
-    ratingForCurrentDay: (typeof ratingForCurrentDay !== 'undefined') ? ratingForCurrentDay.dayRating : null
+    currentReasons: (typeof reasonsForCurrentDay !== 'undefined') ? reasonsForCurrentDay : {reasonType: null},
+    dayRatingId: ratingForCurrentDay.id,
+    ratingForCurrentDay: ratingForCurrentDay.dayRating
   }
 }
 
 
 const mapDispatchToProps = dispatch => {
   return {
-    addReason: (reasonId, dayToRate, dayRating) => {
-      dispatch(addReason(reasonId, dayToRate, dayRating))
+    addReason: (reasonType, dayRatingId) => {
+      dispatch(addReason(reasonType, dayRatingId))
     },
-    deleteReason: (reasonId, dayToRate, dayRating) => {
-      dispatch(deleteReason(reasonId, dayToRate, dayRating))
+    deleteReason: (reasonId) => {
+      dispatch(deleteReason(reasonId))
     }
   }
 }

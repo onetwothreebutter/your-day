@@ -16,9 +16,9 @@ class ReasonButtonEl extends Component {
 
   checkboxClicked() {
     if(!this.props.checked) {
-      this.props.addReason(this.props.reasonId, this.props.dayToRate, this.props.dayRating)
+      this.props.addReason(this.props.reasonType, this.props.dayRatingId)
     } else {
-      this.props.deleteReason(this.props.reasonId, this.props.dayToRate, this.props.dayRating)
+      this.props.deleteReason(this.props.reasonId)
     }
   }
   
@@ -27,7 +27,7 @@ class ReasonButtonEl extends Component {
    return (
      <>
       <ReasonLabel>
-        <input type='checkbox' name='reasonCheckbox' checked={this.props.checked} value={this.props.reasonId} onChange={this.checkboxClicked}/>
+        <input type='checkbox' name='reasonCheckbox' checked={this.props.checked} value={this.props.reasonType} onChange={this.checkboxClicked}/>
         {this.props.reasonText}
       </ReasonLabel>
 

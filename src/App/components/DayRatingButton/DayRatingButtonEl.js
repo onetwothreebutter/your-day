@@ -14,10 +14,10 @@ class DayRatingButtonEl extends Component {
   }
 
   handleClick(event) {
-    if(!this.props.dayRating.dayRating) {
+    if(!this.props.id) {
       this.props.addDayRating(this.props.dayType, this.props.dayToRate);
     } else {
-      this.props.updateDayRating(this.props.dayType, this.props.dayToRate);
+      this.props.updateDayRating(this.props.id, this.props.dayType, this.props.dayToRate);
     }
 
   }
