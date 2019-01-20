@@ -3,7 +3,7 @@ import { addReason, deleteReason  } from '../../stateManagement/actions'
 import DayTypeReasonsEl from "./DayTypeReasonsEl";
 
 const mapStateToProps = state => {
-  let ratingForCurrentDay = state.dayRatings.filter( dayRating => dayRating.day === state.dayToRate).pop();
+  let ratingForCurrentDay = Object.values(state.dayRatings).filter( dayRating => dayRating.day === state.dayToRate).pop();
   let reasonsForCurrentDay = state.reasons.filter( item => item.dayRatingId === ratingForCurrentDay.id);
 
   return {

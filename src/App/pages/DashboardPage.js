@@ -1,17 +1,17 @@
 import React, {Component} from 'react';
 import PageLayout from '../pages/PageLayout'
-import DayRating from '../components/DayRating/DayRating';
+import Dashboard from '../components/Dashboard/Dashboard';
 
-class DayRatingPage extends Component {
+class DashboardPage extends Component {
 
   render(){
 
     return (
       <PageLayout>
-        <DayRating/>
+        <Dashboard/>
       </PageLayout>
     )
   }
 }
 
-export default DayRatingPage
+export default DashboardPage

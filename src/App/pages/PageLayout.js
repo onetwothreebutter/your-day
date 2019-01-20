@@ -1,20 +1,14 @@
 import React, {Component} from 'react';
-import LoginButton from '../components/Login/LoginButton';
+import LoginButton from '../components/LoginButton/LoginButton';
 
 class PageLayout extends Component {
-
-  constructor(props){
-    super(props);
-
-  }
-
 
   render() {
     return (
       <div>
         <header>
           YourDay
-          <LoginButton auth={this.props.auth}/>
+          <LoginButton />
         </header>
         <main className="container">
           {this.props.children}

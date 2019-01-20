@@ -2,6 +2,7 @@ import { createStore, combineReducers } from 'redux';
 import {connect, Provider } from 'react-redux';
 import { format } from 'date-fns';
 import {
+  FETCH_USER,
   SET_EMAIL_REQUEST,
   SET_DAY_TO_RATE,
   ADD_DAY_RATING,
@@ -10,14 +11,15 @@ import {
   DELETE_REASON,
   DELETE_REASONS_FOR_DAY_RATING,
   ADD_REASON_DETAIL,
-  UPDATE_REASON_DETAIL} from './actions';
-import yourDayFirebase from '../utils/yourDayFirebase';
+  UPDATE_REASON_DETAIL,
+  FETCH_DAY_RATINGS
+} from './actions';
+import { databaseRef } from "../utils/yourDayFirebase";
 
 const initialState = {
   userInfo: {
-    email: undefined,
-    firstName: undefined,
-    lastName: undefined
+    user: undefined,
+    loggedIn: false
   },
   dayToRate: undefined,
   dayRatings: [
@@ -46,19 +48,15 @@ const initialState = {
 
 
 
-function getUsersState() {
-
-}
-
-
 
 function userInfo(state = {}, action){
-  console.log('USERINFO FUNCTION');
+  console.log('USERINFO REDUCER', action);
   switch (action.type) {
-    case SET_EMAIL_REQUEST:
+    case FETCH_USER:
       return {
         ...state,
-        email: action.email
+        user: action.payload,
+        loggedIn: action.payload !== null
       };
     default:
       return state;
@@ -82,39 +80,9 @@ function dayRatings(state = [], action) {
 
   switch (action.type) {
 
-    case ADD_DAY_RATING:
-      var dayRatingKey = yourDayFirebase().ref().child('day-ratings').push().key;
-      yourDayFirebase().ref('day-ratings/' + dayRatingKey).set({
-        day: action.day,
-        dayRating: action.dayRating
-      });
+    case FETCH_DAY_RATINGS:
+      return action.payload || state;
 
-      return [
-        ...state,
-        {
-          id: dayRatingKey,
-          day: action.day,
-          dayRating: action.dayRating
-        }
-      ]
-
-    case UPDATE_DAY_RATING:
-      yourDayFirebase().ref('day-ratings/' + action.id).set({
-        day: action.day,
-        dayRating: action.dayRating
-      });
-
-      return state.map( item => {
-        if (item.id === action.id) {
-          return {
-            id: item.id,
-            day: item.day,
-            dayRating: action.dayRating
-          };
-        } else {
-          return item;
-        }
-      });
     default:
       return state;
   }
@@ -125,8 +93,8 @@ function dayRatings(state = [], action) {
 function reasons(state = [], action) {
   switch (action.type) {
     case ADD_REASON:
-      var newReasonKey = yourDayFirebase().ref().child('reasons').push().key;
-      yourDayFirebase().ref('reasons/' + newReasonKey).set({
+      var newReasonKey = databaseRef.child('reasons').push().key;
+      databaseRef.child('reasons/' + newReasonKey).set({
         dayRatingId: action.dayRatingId,
         reasonType: action.reasonType,
       });
@@ -140,14 +108,14 @@ function reasons(state = [], action) {
         }
       ]
     case DELETE_REASON:
-      yourDayFirebase().ref('reasons/' + action.id).remove();
+      databaseRef.child('reasons/' + action.id).remove();
       return state.filter( item => {
         return !(item.id === action.id);
       });
 
     case DELETE_REASONS_FOR_DAY_RATING:
       //delete reasons associated with previous day rating
-      let reasonsRef = yourDayFirebase().ref('reasons');
+      let reasonsRef = databaseRef.child('reasons');
       reasonsRef.orderByChild('dayRatingId').equalTo(action.dayRatingId).once('value').then(
         function(snapshot) {
           const updates = {};
@@ -172,8 +140,8 @@ function reasons(state = [], action) {
 function reasonDetails(state = [], action) {
   switch (action.type) {
     case ADD_REASON_DETAIL:
-      var newReasonDetailKey = yourDayFirebase().ref().child('reasons-details').push().key;
-      yourDayFirebase().ref('reasons-details/' + newReasonDetailKey).set({
+      var newReasonDetailKey = databaseRef.child('reasons-details').push().key;
+      databaseRef.child('reasons-details/' + newReasonDetailKey).set({
         id: newReasonDetailKey,
         reasonId: action.reasonId,
         day: action.day,

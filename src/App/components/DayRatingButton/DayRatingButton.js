@@ -3,10 +3,21 @@ import { addDayRating, updateDayRating, deleteReasonsForDayRating  } from '../..
 import DayRatingButtonEl from './DayRatingButtonEl'
 
 const mapStateToProps = state => {
-  let ratingForCurrentDay = state.dayRatings.filter( item => item.day === state.dayToRate).pop();
+  let ratingForCurrentDay = {
+    id: null,
+    dayRating: null
+  };
+  for (const key of Object.keys(state.dayRatings)) {
+    if(state.dayRatings[key].day === state.dayToRate) {
+      ratingForCurrentDay.id = key;
+      ratingForCurrentDay.dayRating = Object.assign({}, state.dayRatings[key]);
+    }
+  }
+
   return {
-    id: (typeof ratingForCurrentDay !== 'undefined') ? ratingForCurrentDay.id : null,
-    dayRating: (typeof ratingForCurrentDay !== 'undefined') ? ratingForCurrentDay : {dayRating: null},
+    userId: state.userInfo.user.uid,
+    id: ratingForCurrentDay.id,
+    dayRating: ratingForCurrentDay.dayRating,
     dayToRate: state.dayToRate
   }
 }
@@ -14,12 +25,12 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    addDayRating: (rating, dayToRate) => {
-      dispatch(addDayRating(rating, dayToRate))
+    addDayRating: (rating, dayToRate, userId) => {
+      dispatch(addDayRating(rating, dayToRate, userId))
     },
-    updateDayRating: (id, rating, dayToRate) => {
-      dispatch(updateDayRating(id, rating, dayToRate));
-      dispatch(deleteReasonsForDayRating(id));
+    updateDayRating: (id, rating) => {
+      dispatch(updateDayRating(id, rating));
+      //dispatch(deleteReasonsForDayRating(id));
     },
   }
 }

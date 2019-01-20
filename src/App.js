@@ -1,54 +1,45 @@
 import React, { Component } from 'react';
-import Auth from './App/utils/Auth';
-import {BrowserRouter as Router, Route, Switch, withRouter} from 'react-router-dom'
-import { Provider } from 'react-redux'
-import AppCss from './App/styles/AppStyles'
-import SecretRoute from './App/utils/SecretRoute'
-import HomePage from './App/pages/HomePage'
-import LoginPage from './App/pages/LoginPage'
-import DayRatingPage from './App/pages/DayRatingPage'
-import RatingHistoryPage from './App/pages/RatingHistoryPage'
-import HappiestCompanies from './App/pages/HappiestCompanies'
-import Callback from './App/components/Callback/Callback'
-import { createStore } from 'redux'
-import yourDayReducers from './App/stateManagement/reducers'
-import PublicRoute from "./App/utils/PublicRoute";
+import {BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import AppCss from './App/styles/AppStyles';
+import HomePage from './App/pages/HomePage';
+import LoginPageEl from './App/pages/LoginPage/LoginPageEl'
+import DayRatingPage from './App/pages/DayRatingPage';
+import DashboardPage from './App/pages/DashboardPage';
+import RatingHistoryPage from './App/pages/RatingHistoryPage';
+import HappiestCompanies from './App/pages/HappiestCompanies';
+import { connect } from 'react-redux';
+import requireAuth from './App/components/requireAuth';
+import { fetchUser, fetchDayRatings } from './App/stateManagement/actions';
 
-const auth = new Auth();
 
 class App extends Component {
 
-  constructor(props){
-    super(props);
-
+  componentWillMount() {
+    this.props.fetchUser();
+    this.props.fetchDayRatings();
   }
 
   render() {
-    const store = createStore(yourDayReducers)
-    
+
     return (
       <Router>
-        <Provider store={store}>
-          <AppCss>
-            <Switch>
-              <SecretRoute path="/rate-day" myComponent={DayRatingPage} auth={auth}/>
-              <SecretRoute path="/rating-history" myComponent={RatingHistoryPage} auth={auth}/>
-              <SecretRoute path="/dashboard" myComponent={HomePage} auth={auth}/>
+        <AppCss>
+          <Switch>
+            /* Authentication Required */
+            <Route path="/rate-day" component={requireAuth(DayRatingPage)} />
+            <Route path="/rating-history" component={requireAuth(RatingHistoryPage)} />
+            <Route path="/dashboard" component={requireAuth(DashboardPage)} />
 
-              <Route path="/login" render={(routerProps) => <LoginPage {...routerProps} auth={auth} /> } />
-              <Route exact path='/callback' render={() => (
-                <Callback auth={auth}/>
-              )}/>
-
-              <PublicRoute path="/happiest-companies" myComponent={HappiestCompanies} auth={auth}/>
-              <PublicRoute path="/home" myComponent={HomePage} auth={auth}/>
-              <PublicRoute path="/" myComponent={HomePage} auth={auth}/>
-            </Switch>
-          </AppCss>
-        </Provider>
+            /* Public Routes */
+            <Route path="/login" render={(routerProps) => <LoginPageEl {...routerProps}  /> } />
+            <Route path="/happiest-companies" component={HappiestCompanies} />
+            <Route path="/home" component={HomePage} />
+            <Route path="/" component={HomePage} />
+          </Switch>
+        </AppCss>
       </Router>
     );
   }
 }
 
-export default App;
+export default connect(null, { fetchUser, fetchDayRatings })(App);

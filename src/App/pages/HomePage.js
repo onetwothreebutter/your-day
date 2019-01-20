@@ -6,7 +6,7 @@ class HomePage extends Component {
   render(){
     return (
       <>
-        <PageLayout auth={this.props.auth}>
+        <PageLayout>
           <h1>Home Pages</h1>
         </PageLayout>
       </>

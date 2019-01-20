@@ -1,5 +1,4 @@
 import React, {Component} from 'react'
-import firebase from 'firebase'
 import styled from '@emotion/styled'
 
 let SaveButtonCss = styled.button({
@@ -17,22 +16,8 @@ let SaveButtonCss = styled.button({
 
 class SaveButtonEl extends Component {
 
-  constructor(props){
-    super(props);
-    this.save = this.save.bind(this);
-  }
-
   save() {
-    var config = {
-    apiKey: "AIzaSyC9rMaW5UiotPoYlcwXWlh89HiuRi0yWWE",
-    authDomain: "yourday-50644.firebaseapp.com",
-    databaseURL: "https://yourday-50644.firebaseio.com",
-    storageBucket: "",
-    };
-    firebase.initializeApp(config);
-
-    var database = firebase.database();
-
+    this.props.saveDayRating(this.props.dayRating, );
   }
   
   render () {

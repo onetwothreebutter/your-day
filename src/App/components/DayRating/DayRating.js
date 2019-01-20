@@ -5,7 +5,7 @@ import DayRatingEl from './DayRatingEl'
 const mapStateToProps = state => {
   console.log('dayrating map')
   return {
-    ratingForCurrentDay: state.dayRatings.filter( item => item.day === state.dayToRate).pop(),
+    ratingForCurrentDay: Object.values(state.dayRatings).filter( item => item.day === state.dayToRate).pop(),
     dayToRate: state.dayToRate
   };
 }
